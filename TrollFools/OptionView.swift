@@ -10,6 +10,7 @@ import SwiftUI
 private enum Option {
     case attach
     case detach
+    case favorite
 }
 
 private struct OptionCell: View {
@@ -45,8 +46,7 @@ private struct OptionCell: View {
 
             Text(option == .attach 
                  ? NSLocalizedString("Inject", comment: "")
-                 : NSLocalizedString("Eject", comment: "")
-                 : NSLocalizedString("Favorite", comment: ""))
+                 : NSLocalizedString("Eject", comment: ""))
                 .font(.headline)
                 .foregroundColor(option == .attach
                                  ? .accentColor : .red)
@@ -94,7 +94,7 @@ struct OptionView: View {
                 Button {
                     isImporterPresented = true
                 } label: {
-                    OptionCell(option: .attach)
+                    OptionCell(option: .favorite)
                 }
                 .accessibilityLabel(NSLocalizedString("Favorite", comment: ""))
 
