@@ -45,7 +45,8 @@ private struct OptionCell: View {
 
             Text(option == .attach 
                  ? NSLocalizedString("Inject", comment: "")
-                 : NSLocalizedString("Eject", comment: ""))
+                 : NSLocalizedString("Eject", comment: "")
+                 : NSLocalizedString("Favorite", comment: ""))
                 .font(.headline)
                 .foregroundColor(option == .attach
                                  ? .accentColor : .red)
@@ -87,6 +88,15 @@ struct OptionView: View {
                     OptionCell(option: .detach)
                 }
                 .accessibilityLabel(NSLocalizedString("Eject", comment: ""))
+
+                Spacer()
+
+                Button {
+                    isImporterPresented = true
+                } label: {
+                    OptionCell(option: .attach)
+                }
+                .accessibilityLabel(NSLocalizedString("Favorite", comment: ""))
 
                 Spacer()
             }
