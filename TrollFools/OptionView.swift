@@ -1,25 +1,33 @@
-//
-//  OptionView.swift
-//  TrollFools
-//
-//  Created by Lessica on 2024/7/19.
-//
-
 import SwiftUI
+import Foundation
 
 private enum Option {
     case attach
     case detach
+    case favorite
 }
 
 private struct OptionCell: View {
     let option: Option
+    let isFavorite: Bool
 
     var iconName: String {
         if #available(iOS 16.0, *) {
-            option == .attach ? "syringe" : "xmark.bin"
+            if option == .attach {
+                return "syringe"
+            } else if option == .favorite {
+                return isFavorite ? "heart.fill" : "heart"
+            } else {
+                return "xmark.bin"
+            }
         } else {
-            option == .attach ? "tray.and.arrow.down" : "xmark.bin"
+            if option == .attach {
+                return "tray.and.arrow.down"
+            } else if option == .favorite {
+                return isFavorite ? "heart.fill" : "heart"
+            } else {
+                return "xmark.bin"
+            }
         }
     }
 
@@ -27,28 +35,25 @@ private struct OptionCell: View {
         VStack(spacing: 12) {
             ZStack {
                 Image(systemName: iconName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 32, height: 32)
-                .foregroundColor(option == .attach
-                                 ? .accentColor : .red)
-                .padding(.all, 40)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 32, height: 32)
+                    .foregroundColor(option == .attach ? .accentColor : option == .favorite ? .yellow : .red)
+                    .padding(.all, 40)
             }
             .background(
-                (option == .attach ? Color.accentColor : Color.red)
+                (option == .attach ? Color.accentColor : option == .favorite ? Color.yellow : Color.red)
                     .opacity(0.1)
-                    .clipShape(RoundedRectangle(
-                        cornerRadius: 10,
-                        style: .continuous
-                    ))
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             )
 
-            Text(option == .attach 
+            Text(option == .attach
                  ? NSLocalizedString("Inject", comment: "")
+                 : option == .favorite
+                 ? NSLocalizedString("Favorite", comment: "")
                  : NSLocalizedString("Eject", comment: ""))
                 .font(.headline)
-                .foregroundColor(option == .attach
-                                 ? .accentColor : .red)
+                .foregroundColor(option == .attach ? .accentColor : option == .favorite ? .yellow : .red)
         }
     }
 }
@@ -56,17 +61,18 @@ private struct OptionCell: View {
 struct OptionView: View {
     let app: App
 
+    @EnvironmentObject var vm: AppListModel
+
     @State var isImporterPresented = false
     @State var isImporterSelected = false
-
     @State var isSettingsPresented = false
-
-    @State var importerResult: Result<[URL], any Error>?
+    @State var importerResult: Result<[URL], any Error>? = nil
+    @State var isFavorite: Bool = false // 設定初始值為 false
 
     init(_ app: App) {
         self.app = app
     }
-
+    
     var body: some View {
         VStack(spacing: 80) {
             HStack {
@@ -75,7 +81,7 @@ struct OptionView: View {
                 Button {
                     isImporterPresented = true
                 } label: {
-                    OptionCell(option: .attach)
+                    OptionCell(option: .attach, isFavorite: isFavorite)
                 }
                 .accessibilityLabel(NSLocalizedString("Inject", comment: ""))
 
@@ -84,9 +90,22 @@ struct OptionView: View {
                 NavigationLink {
                     EjectListView(app)
                 } label: {
-                    OptionCell(option: .detach)
+                    OptionCell(option: .detach, isFavorite: isFavorite)
                 }
                 .accessibilityLabel(NSLocalizedString("Eject", comment: ""))
+
+                Spacer()
+
+                Button {
+                    FavoriteFun().updateFavorite(app.id)
+                    isFavorite.toggle() // 更新 isFavorite
+                    withAnimation {
+                        app.reload()
+                    }
+                } label: {
+                    OptionCell(option: .favorite, isFavorite: isFavorite)
+                }
+                .accessibilityLabel(NSLocalizedString("Favorite", comment: ""))
 
                 Spacer()
             }
@@ -100,6 +119,9 @@ struct OptionView: View {
         }
         .padding()
         .navigationTitle(app.name)
+        .onAppear {
+            isFavorite = FavoriteFun().isBundleFavorite(app.id) // 在視圖出現時更新 isFavorite
+        }
         .background(Group {
             NavigationLink(isActive: $isImporterSelected) {
                 if let result = importerResult {

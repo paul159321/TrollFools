@@ -19,6 +19,7 @@ final class App: Identifiable, ObservableObject {
     @Published var isDetached: Bool = false
     @Published var isAllowedToAttachOrDetach: Bool
     @Published var isInjected: Bool = false
+    @Published var isFavorite: Bool = false
 
     lazy var icon: UIImage? = UIImage._applicationIconImage(forBundleIdentifier: id, format: 0, scale: 3.0)
     var alternateIcon: UIImage?
@@ -47,12 +48,14 @@ final class App: Identifiable, ObservableObject {
         self.isDetached = Injector.isBundleDetached(url)
         self.isAllowedToAttachOrDetach = type == "User" && Injector.isBundleAllowedToAttachOrDetach(url)
         self.isInjected = Injector.isBundleInjected(url)
+        self.isFavorite = FavoriteFun().isBundleFavorite(id)
         self.alternateIcon = alternateIcon
     }
 
     func reload() {
         reloadDetachedStatus()
         reloadInjectedStatus()
+        reloadFavoriteStatus()
     }
 
     private func reloadDetachedStatus() {
@@ -62,6 +65,10 @@ final class App: Identifiable, ObservableObject {
 
     private func reloadInjectedStatus() {
         self.isInjected = Injector.isBundleInjected(url)
+    }
+
+    private func reloadFavoriteStatus() {
+        self.isFavorite = FavoriteFun().isBundleFavorite(id)
     }
 }
 
@@ -94,7 +101,7 @@ final class AppListModel: ObservableObject {
         reload()
 
         filter.$searchKeyword
-            .combineLatest(filter.$showPatchedOnly)
+            .combineLatest(filter.$showPatchedOnly, filter.$showFavoriteOnly)
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] _ in
                 withAnimation {
@@ -148,6 +155,10 @@ final class AppListModel: ObservableObject {
 
         if filter.showPatchedOnly {
             filteredApplications = filteredApplications.filter { $0.isInjected }
+        }
+
+        if filter.showFavoriteOnly {
+            filteredApplications = filteredApplications.filter { $0.isFavorite }
         }
 
         userApplications = filteredApplications.filter { $0.isUser }
@@ -232,12 +243,14 @@ final class AppListModel: ObservableObject {
 final class FilterOptions: ObservableObject {
     @Published var searchKeyword = ""
     @Published var showPatchedOnly = false
+    @Published var showFavoriteOnly = false
 
     var isSearching: Bool { !searchKeyword.isEmpty }
 
     func reset() {
         searchKeyword = ""
         showPatchedOnly = false
+        showFavoriteOnly = false
     }
 }
 
@@ -368,6 +381,13 @@ struct AppListCell: View {
                             .font(.subheadline)
                             .foregroundColor(.orange)
                             .accessibilityLabel(NSLocalizedString("Patched", comment: ""))
+                    }
+
+                    if app.isFavorite {
+                        Image(systemName: "heart")
+                            .font(.subheadline)
+                            .foregroundColor(.orange)
+                            .accessibilityLabel(NSLocalizedString("Favorite", comment: ""))
                     }
                 }
 
@@ -594,6 +614,16 @@ struct AppListView: View {
                     }
                 }
             }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    vm.filter.showFavoriteOnly.toggle()
+                } label: {
+                    Image(systemName: vm.filter.showFavoriteOnly ? "heart.fill" : "heart")
+                }
+                .accessibilityLabel(NSLocalizedString("Show Favorite Only", comment: ""))
+            }
+
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     vm.filter.showPatchedOnly.toggle()

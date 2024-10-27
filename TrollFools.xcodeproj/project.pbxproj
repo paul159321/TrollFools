@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9372A09E2CCBC4B800419C35 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9372A09D2CCBC4B800419C35 /* Favorite.swift */; };
 		CC0E80FB2C54F84000B137B4 /* mv-15 in Resources */ = {isa = PBXBuildFile; fileRef = CC0E80FA2C54F84000B137B4 /* mv-15 */; };
 		CC1548C92C4A6B2100A4173E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CC1548C82C4A6B2100A4173E /* ZIPFoundation */; };
 		CC1548D12C4A6B8200A4173E /* ct_bypass in Resources */ = {isa = PBXBuildFile; fileRef = CC1548CF2C4A6B8200A4173E /* ct_bypass */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9372A09D2CCBC4B800419C35 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		CC0E80FA2C54F84000B137B4 /* mv-15 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "mv-15"; sourceTree = "<group>"; };
 		CC1548CF2C4A6B8200A4173E /* ct_bypass */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ct_bypass; sourceTree = "<group>"; };
 		CC1548D22C4A743200A4173E /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				CCF470722C4A4E81008D8197 /* TrollFoolsStub.m */,
 				CCF470712C4A4E81008D8197 /* TrollFools-Bridging-Header.h */,
 				CC15490F2C4B84DD00A4173E /* Resources */,
+				9372A09D2CCBC4B800419C35 /* Favorite.swift */,
 			);
 			path = TrollFools;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9372A09E2CCBC4B800419C35 /* Favorite.swift in Sources */,
 				CCF5A0A62C4D45400097D48D /* AuxiliaryExecute+Spawn.swift in Sources */,
 				CCB6A11B2C4A6066000D75B0 /* InjectView.swift in Sources */,
 				CCF470732C4A4E81008D8197 /* TrollFoolsStub.m in Sources */,
