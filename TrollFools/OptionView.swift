@@ -46,7 +46,7 @@ struct OptionView: View {
 
                 // Favorite 按鈕
                 Button {
-                    FavoriteModel.addFavorite()  // 當按下 Favorite 按鈕時調用該方法
+                    FavoriteModel.addFavorite(app.url)  // 當按下 Favorite 按鈕時調用該方法
                 } label: {
                     OptionCell(option: .favorite)
                 }
