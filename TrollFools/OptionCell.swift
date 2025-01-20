@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OptionCell: View {
     let option: Option
+    let isFavorite: Bool
 
     var iconName: String {
         if #available(iOS 16.0, *) {
