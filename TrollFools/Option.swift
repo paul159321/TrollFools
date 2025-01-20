@@ -8,4 +8,5 @@
 enum Option {
     case attach
     case detach
+    case favorite
 }

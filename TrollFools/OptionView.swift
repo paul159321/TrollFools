@@ -43,6 +43,16 @@ struct OptionView: View {
                 .accessibilityLabel(NSLocalizedString("Eject", comment: ""))
 
                 Spacer()
+
+                // Favorite 按鈕
+                Button {
+                    Favorite.addFavorite()  // 當按下 Favorite 按鈕時調用該方法
+                } label: {
+                    OptionCell(option: .favorite)
+                }
+                .accessibilityLabel(NSLocalizedString("Favorite", comment: ""))
+
+                Spacer()
             }
 
             Button {

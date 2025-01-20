@@ -18,6 +18,7 @@ final class App: Identifiable, ObservableObject {
     @Published var isDetached: Bool = false
     @Published var isAllowedToAttachOrDetach: Bool
     @Published var isInjected: Bool = false
+    @Published var isFavorite: Bool = false
 
     lazy var icon: UIImage? = UIImage._applicationIconImage(forBundleIdentifier: id, format: 0, scale: 3.0)
     var alternateIcon: UIImage?
@@ -48,12 +49,14 @@ final class App: Identifiable, ObservableObject {
         self.isDetached = InjectorV3.main.isMetadataDetachedInBundle(url)
         self.isAllowedToAttachOrDetach = type == "User" && InjectorV3.main.isAllowedToAttachOrDetachMetadataInBundle(url)
         self.isInjected = InjectorV3.main.checkIsInjectedAppBundle(url)
+        self.isFavorite = FavoriteModel.isBundleFavorite(url)
         self.alternateIcon = alternateIcon
     }
 
     func reload() {
         reloadDetachedStatus()
         reloadInjectedStatus()
+        reloadFavoriteStatus()
     }
 
     private func reloadDetachedStatus() {
@@ -63,5 +66,9 @@ final class App: Identifiable, ObservableObject {
 
     private func reloadInjectedStatus() {
         self.isInjected = InjectorV3.main.checkIsInjectedAppBundle(url)
+    }
+
+    private func reloadFavoriteStatus() {
+        self.isFavorite = FavoriteModel.isBundleFavorite(url)
     }
 }

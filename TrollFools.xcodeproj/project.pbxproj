@@ -33,6 +33,7 @@
 		61EFA3792D3108BD00159442 /* InjectorV3+Eject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EFA3782D3108B700159442 /* InjectorV3+Eject.swift */; };
 		61EFA37B2D31165700159442 /* InjectorV3+Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EFA37A2D31165000159442 /* InjectorV3+Backup.swift */; };
 		61EFA37D2D311DA800159442 /* InjectorV3+Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EFA37C2D311DA300159442 /* InjectorV3+Inject.swift */; };
+		93A07BD32D3757C900F2FE22 /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A07BD22D3757C900F2FE22 /* FavoriteModel.swift */; };
 		CC0E80FB2C54F84000B137B4 /* mv-15 in Resources */ = {isa = PBXBuildFile; fileRef = CC0E80FA2C54F84000B137B4 /* mv-15 */; };
 		CC1548C92C4A6B2100A4173E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CC1548C82C4A6B2100A4173E /* ZIPFoundation */; };
 		CC1548D12C4A6B8200A4173E /* ct_bypass in Resources */ = {isa = PBXBuildFile; fileRef = CC1548CF2C4A6B8200A4173E /* ct_bypass */; };
@@ -96,6 +97,7 @@
 		61EFA3782D3108B700159442 /* InjectorV3+Eject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectorV3+Eject.swift"; sourceTree = "<group>"; };
 		61EFA37A2D31165000159442 /* InjectorV3+Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectorV3+Backup.swift"; sourceTree = "<group>"; };
 		61EFA37C2D311DA300159442 /* InjectorV3+Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectorV3+Inject.swift"; sourceTree = "<group>"; };
+		93A07BD22D3757C900F2FE22 /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
 		CC0E80FA2C54F84000B137B4 /* mv-15 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "mv-15"; sourceTree = "<group>"; };
 		CC1548CF2C4A6B8200A4173E /* ct_bypass */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ct_bypass; sourceTree = "<group>"; };
 		CC1548D22C4A743200A4173E /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				6124A0752CD232C600C52253 /* Option.swift */,
 				6124A07C2CD233A700C52253 /* InjectedPlugIn.swift */,
 				6124A0802CD233DA00C52253 /* EjectListModel.swift */,
+				93A07BD22D3757C900F2FE22 /* FavoriteModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				6124A0742CD2328600C52253 /* AppListCell.swift in Sources */,
 				6168001D2D3652B600DF485F /* LogsView.swift in Sources */,
 				CCF5A0A42C4D45160097D48D /* AuxiliaryExecute.swift in Sources */,
+				93A07BD32D3757C900F2FE22 /* FavoriteModel.swift in Sources */,
 				6168001B2D364DD400DF485F /* StripedTextTableViewController.m in Sources */,
 				6124A0712CD2326500C52253 /* FilterOptions.swift in Sources */,
 				61EFA3792D3108BD00159442 /* InjectorV3+Eject.swift in Sources */,

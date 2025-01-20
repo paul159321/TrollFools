@@ -136,6 +136,13 @@ struct AppListCell: View {
                             .foregroundColor(.orange)
                             .accessibilityLabel(NSLocalizedString("Patched", comment: ""))
                     }
+
+                    if app.isFavorite {
+                        Image(systemName: "start")
+                            .font(.subheadline)
+                            .foregroundColor(.orange)
+                            .accessibilityLabel(NSLocalizedString("Favorite", comment: ""))
+                    }
                 }
 
                 if #available(iOS 15.0, *) {
